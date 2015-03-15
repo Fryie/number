@@ -17,11 +17,7 @@ def gcd(a, b)
 
   if a < 0 || b < 0
     d, s, t = gcd(a.abs, b.abs)
-    return [
-      d,
-      a/a.abs * s,
-      b/b.abs * t
-    ]
+    return [d, a/a.abs * s, b/b.abs * t]
   end
 
   if b > a
@@ -29,25 +25,21 @@ def gcd(a, b)
     return [d, t, s]
   end
 
-  r1 = a
-  r2 = b
-  multiples_of_a_in_r1 = 1
-  multiples_of_b_in_r1 = 0
-  multiples_of_a_in_r2 = 0
-  multiples_of_b_in_r2 = 1
+  r = [a, b]
+  multiples = [[1, 0], [0, 1]]
 
-  while (r1 % r2 != 0)
-    new_r = r1 % r2
-    multiples_of_a_in_new_r = multiples_of_a_in_r1 - (r1/r2)*multiples_of_a_in_r2
-    multiples_of_b_in_new_r = multiples_of_b_in_r1 - (r1/r2)*multiples_of_b_in_r2
+  while (r[0] % r[1] != 0)
+    new_r = r[0] % r[1]
+    new_multiples = [
+      multiples[0][0] - (r[0]/r[1])*multiples[1][0],
+      multiples[0][1] - (r[0]/r[1])*multiples[1][1]
+    ]
 
-    r1 = r2
-    r2 = new_r
-    multiples_of_a_in_r1 = multiples_of_a_in_r2
-    multiples_of_a_in_r2 = multiples_of_a_in_new_r
-    multiples_of_b_in_r1 = multiples_of_b_in_r2
-    multiples_of_b_in_r2 = multiples_of_b_in_new_r
+    r[0] = r[1]
+    r[1] = new_r
+    multiples[0] = multiples[1]
+    multiples[1] = new_multiples
   end
 
-  [r2, multiples_of_a_in_r2, multiples_of_b_in_r2]
+  [r[1], multiples[1][0], multiples[1][1]]
 end
