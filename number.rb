@@ -16,22 +16,28 @@ def rem(a, b)
   a - (b * quot(a, b))
 end
 
+# GCD function using the Euclidean algorithm
+# returns the greatest common denominator of a and b
+def gcd(a, b)
+  gcd_extended(a, b)[0]
+end
+
 # GCD function using the extended Euclidean algorithm
 # returns an array of three values [d, s, t],
 # such that d is the greatest common denominator of a and b,
 # and a*s + b*t = d
-def gcd(a, b)
+def gcd_extended(a, b)
   raise ArgumentError if a == 0 && b == 0
   return [a, 1, 0] if a == b
   return [a, 1, 0] if b == 0
 
   if a < 0 || b < 0
-    d, s, t = gcd(a.abs, b.abs)
+    d, s, t = gcd_extended(a.abs, b.abs)
     return [d, a/a.abs * s, b/b.abs * t]
   end
 
   if b > a
-    d, s, t = gcd(b, a)
+    d, s, t = gcd_extended(b, a)
     return [d, t, s]
   end
 
