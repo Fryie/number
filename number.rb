@@ -1,3 +1,9 @@
+# integer division and remainder function
+# satisfy the following properties:
+# - a = quot(a, b)*b + rem(a, b)
+# - 0 <= quot(a, b) < |b|
+# this is different from Ruby's % and / operators,
+# for which only the first property holds
 def quot(a, b)
   if b < 0
     (a.to_f / b).ceil
@@ -10,6 +16,10 @@ def rem(a, b)
   a - (b * quot(a, b))
 end
 
+# GCD function using the extended Euclidean algorithm
+# returns an array of three values [d, s, t],
+# such that d is the greatest common denominator of a and b,
+# and a*s + b*t = d
 def gcd(a, b)
   raise ArgumentError if a == 0 && b == 0
   return [a, 1, 0] if a == b
